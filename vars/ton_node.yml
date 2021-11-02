@@ -1,0 +1,124 @@
+
+# Choose node version to install  (C-node is not working now)
+install_rustnode: true
+install_cnode: false
+
+# Set ton work network
+# Possible values are: main, net, fld, rfld
+ton_node_config: "rfld"
+
+# Ton network configs
+ton_node_global_config_URL_list:
+  main:
+    config_URL: "https://raw.githubusercontent.com/tonlabs/main.ton.dev/master/configs/ton-global.config.json"
+    DAPP_address: "https://main.ton.dev"
+    DAPP_endpoints: "https://main2.ton.dev,https://main3.ton.dev,https://main4.ton.dev"
+  net:
+    config_URL: "https://raw.githubusercontent.com/tonlabs/net.ton.dev/master/configs/net.ton.dev/ton-global.config.json"
+    DAPP_address: "https://net.ton.dev"
+    DAPP_endpoints: "https://net1.ton.dev,https://net5.ton.dev"
+  fld:
+    config_URL: "https://raw.githubusercontent.com/FreeTON-Network/fld.ton.dev/main/configs/fld.ton.dev/ton-global.config.json"
+    DAPP_address: "https://gql.custler.net"
+    DAPP_endpoints: "https://gql.custler.net"
+  rfld:
+    config_URL: "https://raw.githubusercontent.com/FreeTON-Network/custler.uninode/main/configs/rfld.ton.dev/ton-global.config.json"
+    DAPP_address: "https://rfld.ton.dev"
+    DAPP_endpoints: "https://rfld-dapp01.ds1.itgold.io,https://rfld-dapp02.am2.itgold.io"
+
+# Get freeton node commit id: https://github.com/tonlabs/ton-labs-node/commits
+ton_node_github_repo: "https://github.com/tonlabs/ton-labs-node.git"
+ton_node_github_commit_id: "master"
+
+# Get freeton node (groth16 support)
+ton_node_github_repo_rfld: "https://github.com/NilFoundation/rust-ton.git"
+ton_node_github_rfld_commit_id: "1-nil-dependencies"
+
+# Recompile rust node (groth16 support) without sources changes false|true
+ton_node_rfld_force_recompile: false  
+
+# Recompile binary without sources changes: false|true
+ton_node_force_recompile: false
+
+# Get freeton node tools commit id: https://github.com/tonlabs/ton-labs-node-tools/commits"
+ton_node_tools_github_repo: "https://github.com/tonlabs/ton-labs-node-tools.git"
+ton_node_tools_github_commit_id: "master"
+
+# Recompile binary without sources changes: false|true
+ton_node_tools_force_recompile: false
+
+# Get tonos cli commit id: https://github.com/tonlabs/tonos-cli/commits"
+tonos_cli_github_repo: "https://github.com/tonlabs/tonos-cli.git"
+tonos_cli_github_commit_id: "master"
+
+# Recompile binary without sources changes: false|true
+tonos_cli_force_recompile: false
+
+# Get TVM linker commit id: https://github.com/tonlabs/TVM-linker/commits"
+tvm_linker_github_repo: "https://github.com/tonlabs/TVM-linker.git"
+tvm_linker_github_commit_id: "master"
+
+# Recompile binary without sources changes: false|true
+tvm_linker_force_recompile: false
+
+# Compile freeton_node with metrics enabled - powered by statsd service it will send stats to influxdb (grafana): false|true
+ton_rnode_metrics_enabled: true
+
+# Compile freeton_node with compression enabled: false|true
+ton_rnode_compression_enabled: true
+
+# Compile freeton_node with external_db enabled: false|true
+ton_rnode_external_db_enabled: true
+
+# Default user and group names
+ton_node_user: "xnode"
+ton_node_group: "xnode"
+
+# Set freetone_node service enabled for autostart after system restart: yes|no
+ton_node_service_autostart: "yes"
+# Freetone_node service state after ansible script deploying: restarted|started|stopped
+ton_node_service_state: "restarted"
+
+# Specify freeton dirs
+# Variable ton_node_user_home depends on username and it's home dir (ton_node_user).
+ton_node_src_dir: "/usr/local/src/ton"
+ton_node_bin_dir: "/usr/local/bin"
+ton_node_tools_dir: "/usr/local/bin"
+ton_node_contracts_dir: "{{ ton_node_user_home }}/contracts"
+ton_node_scripts: "{{ ton_node_user_home }}/scripts"
+ton_node_keys: "{{ ton_node_user_home }}/ton-keys"
+ton_node_election: "{{ ton_node_keys }}/election"
+ton_node_election_history: "{{ ton_node_keys }}/elections_hist"
+
+additional_mount: "/opt/ton-work"
+additional_disk_mounted: true
+
+ton_node_work_dir: "/var/ton-work"
+ton_rnode_work_dir: "/var/ton-work/rnode"
+ton_rnode_db_dir: "{{ ton_rnode_work_dir }}/rnode_db"
+ton_rnode_config_dir: "{{ ton_rnode_work_dir }}/configs"
+ton_rnode_log_dir: "{{ ton_rnode_work_dir }}/logs"
+
+# ton_cnode_work_dir: "/var/ton-work/cnode"
+# ton_cnode_config_dir: "{{ ton_cnode_work_dir }}/configs"
+# ton_cnode_log_dir: "{{ ton_rnode_work_dir }}/logs"
+
+
+##########PORTS################
+ton_node_adnl_port: "30303"
+ton_node_console_port: "4925"
+
+
+# Get Custler repo
+ton_custler_github_repo: "https://github.com/FreeTON-Network/custler.uninode.git"
+ton_custler_github_commit_id: "main"
+ton_custler_scripts_enabled: true
+
+# Freeton smart contracts
+ton_smartcontracts_github_repo: "https://github.com/tonlabs/ton-labs-contracts.git"
+ton_smartcontracts_github_commit_id: "master"
+
+ton_node_additional_contracts:
+  - https://github.com/FreeTON-Network/fld.ton.dev/raw/main/scripts/Marvin.abi.json
+  - https://raw.githubusercontent.com/tonlabs/rustnet.ton.dev/main/docker-compose/ton-node/configs/Elector.abi.json
+
