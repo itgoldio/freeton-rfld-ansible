@@ -175,18 +175,18 @@ To automate validation process with scripts you should place it in cron
 
 ### Automate ticktock depool
 Add to cron\
-`*/3 * * * * /bin/bash && export PATH=$PATH:/home/xnode/scripts &&  cd /home/xnode/scripts && ton-depool-ticktok.sh >> /var/ton-work/rnode/logs/crontab-ton-depool-ticktok.log`\
+`*/3 * * * * /bin/bash && export PATH=$PATH:/home/<username>/scripts &&  cd /home/<username>/scripts && ton-depool-ticktok.sh >> /var/ton-work/rnode/logs/crontab-ton-depool-ticktok.log`\
 it will ticktock depool once in election cycle
 
 ### Automate send validation request
 Add to cron\
-`*/10 * * * * /bin/bash && export PATH=$PATH:/home/xnode/scripts &&  cd /home/xnode/scripts && ton-depool-validation-request.sh >> /var/ton-work/rnode/logs/crontab-ton-depool-validation-request.log`\
+`*/10 * * * * /bin/bash && export PATH=$PATH:/home/<username>/scripts &&  cd /home/<username>/scripts && ton-depool-validation-request.sh >> /var/ton-work/rnode/logs/crontab-ton-depool-validation-request.log`\
 It will send validation request
 
 ### *[Optional]* Sing transaction use secondary key
 If you use wallet with RegConfirm = 2, you can sign transaction with secondary wallet key to depool
 To automate it, just add next string to cron\
-`*/10 * * * * /bin/bash && export PATH=$PATH:/home/xnode/scripts &&  cd /home/xnode/scripts && ton-wallet-transaction-confirm.sh >> /var/ton-work/rnode/logs/crontab-ton-wallet-transaction-confirm.log`
+`*/10 * * * * /bin/bash && export PATH=$PATH:/home/xn<username>ode/scripts &&  cd /home/<username>/scripts && ton-wallet-transaction-confirm.sh >> /var/ton-work/rnode/logs/crontab-ton-wallet-transaction-confirm.log`
 
 ---
 ## Scripts
