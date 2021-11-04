@@ -1,10 +1,10 @@
 
-# Choose node version to install  (C-node is not working now)
+# Choose node version to install  (C-node is not working still and must be set to false. Please use Custler's scripts to deploy it). 
 install_rustnode: true
 install_cnode: false
 
 # Set ton work network
-# Possible values are: main, net, fld, rfld
+# Possible values are: main, net, fld, rfld. Also you must change ton_rnode_compression_enabled value.
 ton_node_config: "rfld"
 
 # Ton network configs
@@ -62,13 +62,13 @@ tvm_linker_github_commit_id: "master"
 tvm_linker_force_recompile: false
 
 # Compile freeton_node with metrics enabled - powered by statsd service it will send stats to influxdb (grafana): false|true
-ton_rnode_metrics_enabled: true
+ton_rnode_metrics_enabled: false
 
-# Compile freeton_node with compression enabled: false|true
+# Compile freeton_node with compression enabled: false|true. Do not use compression at any network except 'rfld'.
 ton_rnode_compression_enabled: true
 
-# Compile freeton_node with external_db enabled: false|true
-ton_rnode_external_db_enabled: true
+# Compile freeton_node with external_db enabled: false|true. Only for DAPP usage with Apache Kafka back-end.
+ton_rnode_external_db_enabled: false
 
 # Default user and group names
 ton_node_user: "xnode"
@@ -90,8 +90,9 @@ ton_node_keys: "{{ ton_node_user_home }}/ton-keys"
 ton_node_election: "{{ ton_node_keys }}/election"
 ton_node_election_history: "{{ ton_node_keys }}/elections_hist"
 
+# `ln -s additional_mount ton_node_work_dir` if additional_disk_mounted == true (mounted to additional_mount). For testing.
 additional_mount: "/opt/ton-work"
-additional_disk_mounted: true
+additional_disk_mounted: false
 
 ton_node_work_dir: "/var/ton-work"
 ton_rnode_work_dir: "/var/ton-work/rnode"
@@ -99,12 +100,7 @@ ton_rnode_db_dir: "{{ ton_rnode_work_dir }}/rnode_db"
 ton_rnode_config_dir: "{{ ton_rnode_work_dir }}/configs"
 ton_rnode_log_dir: "{{ ton_rnode_work_dir }}/logs"
 
-# ton_cnode_work_dir: "/var/ton-work/cnode"
-# ton_cnode_config_dir: "{{ ton_cnode_work_dir }}/configs"
-# ton_cnode_log_dir: "{{ ton_rnode_work_dir }}/logs"
-
-
-##########PORTS################
+# TON node ports 
 ton_node_adnl_port: "30303"
 ton_node_console_port: "4925"
 
