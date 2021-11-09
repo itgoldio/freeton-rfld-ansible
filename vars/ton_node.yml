@@ -106,7 +106,7 @@ ton_node_console_port: "4925"
 
 
 # Get Custler repo
-ton_custler_github_repo: "https://github.com/FreeTON-Network/custler.uninode.git"
+ton_custler_github_repo: "https://github.com/Everscale-Network/custler.uninode.git"
 ton_custler_github_commit_id: "main"
 ton_custler_scripts_enabled: true
 

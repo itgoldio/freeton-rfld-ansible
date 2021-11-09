@@ -1,7 +1,7 @@
 # Time sync parameters
 ntp_enabled: true  # or 'false' if you don't want to install and configure the ntp service
 # Do not set custom ntp servers to use default ntp pool
-ntp_servers: [time.itglobal.com]
+ntp_servers: []
 
 # Set servers timezone: UTC, Europe/Moscow, etc... (all timezones listed here: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones )
 timezone: "Europe/Moscow"
