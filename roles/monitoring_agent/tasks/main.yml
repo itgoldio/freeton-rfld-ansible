@@ -63,7 +63,7 @@
     remote_src: true
     src: "{{ ton_node_src_dir }}/custler.uninode/scripts/"
     dest: "{{ ton_node_scripts }}/"
-    mode: u=rwx,g=rx,o=
+    mode: preserve 
     owner: "{{ ton_node_user }}"
     group: "{{ ton_node_group }}"
   when: ton_custler_scripts_enabled
