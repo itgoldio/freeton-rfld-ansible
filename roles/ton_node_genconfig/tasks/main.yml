@@ -9,6 +9,20 @@
     - "{{ ton_rnode_config_dir }}/console.json"
     - "{{ ton_rnode_config_dir }}/console_config.json"
 
+- name: Check TON user (if not exist)
+  user:
+    name: "{{ ton_node_user }}"
+    comment: "TON node user"
+    group: "{{ ton_node_group }}"
+    shell: /bin/bash
+    state: present
+  register: ton_user_created
+
+- name: Set home directory variable (if not exist)
+  set_fact:
+    ton_node_user_home: "{{ ton_user_created.home }}"
+
+
 - name: Create db dir
   file:
     path: "{{ ton_rnode_db_dir }}"
@@ -99,7 +113,7 @@
   become: yes
   become_user: "{{ ton_node_user }}"
   loop:
-    - "jq '.adnl_node.ip_address = \"0.0.0.0:{{ ton_node_adnl_port }}\"' {{ ton_rnode_config_dir }}/config.json > {{ ton_rnode_config_dir }}/config_tmp.json"
+    - "jq '.adnl_node.ip_address = \"0.0.0.0:{{ ton_node_adnl_port }}\"| .workchain = {{ escale_workchain }}' {{ ton_rnode_config_dir }}/config.json > {{ ton_rnode_config_dir }}/config_tmp.json"
     - "jq '.control_server.address = \"127.0.0.1:{{ ton_node_console_port }}\"' {{ ton_rnode_config_dir }}/config_tmp.json > {{ ton_rnode_config_dir }}/config.json"
     - "jq '.server_address = \"127.0.0.1:{{ ton_node_console_port }}\"' {{ ton_rnode_config_dir }}/console_config.json > {{ ton_rnode_config_dir }}/console_config_tmp.json"
     - 'cat {{ ton_rnode_config_dir }}/console_config_tmp.json > {{ ton_rnode_config_dir }}/console_config.json'
@@ -169,6 +183,15 @@
         - "{{ ton_node_console_port }}/tcp"
       when: "'active (running)' in firewalld_node_state.stdout"
   when: ansible_pkg_mgr == "dnf"
+
+- name: Making Custler scripts env file
+  template:
+    src: "env.sh.j2"
+    dest: "{{ ton_node_scripts }}/env.sh"
+    owner: "{{ ton_node_user }}"
+    group: "{{ ton_node_group }}"
+    mode: u=rwx,g=rx,o=
+  when: ton_custler_scripts_enabled
 
 - name: Restart ton systemd service
   systemd:

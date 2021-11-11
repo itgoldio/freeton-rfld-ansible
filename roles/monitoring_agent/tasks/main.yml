@@ -18,7 +18,7 @@
     group: telegraf
   notify: restart_telegraf
 
-- name: Copy telegraf env config       ############   FIX IT
+- name: Copy telegraf env config
   template:
     src: "telegraf.j2"
     dest: "/etc/default/telegraf"
@@ -68,11 +68,8 @@
     group: "{{ ton_node_group }}"
   when: ton_custler_scripts_enabled
 
-- name: Copy Custler env file
-  template:
-    src: "env.sh.j2"
-    dest: "{{ ton_node_scripts }}/env.sh"
-    owner: "{{ ton_node_user }}"
-    group: "{{ ton_node_group }}"
-    mode: u=rwx,g=rx,o=
+- name: Set executable for Custler scripts
+  file:
+    path: "{{ ton_node_scripts }}/"
+    mode: "u+rwx,g+rx,o-rwx"
   when: ton_custler_scripts_enabled

@@ -69,7 +69,7 @@
   notify: "restart disable-thp"
   when: disable_thp is defined and disable_thp|bool
 
-- name: Setting kernel parameters     #############NEED TO FIX
+- name: Setting kernel parameters
   sysctl:
     name: "{{ item.name }}"
     value: "{{ item.value }}"
