@@ -9,7 +9,7 @@ ton_node_config: "rfld"
 
 
 # Possible values are: -1, 0 and 1. For rust node use 0.
-escale_workchain: "1"
+escale_workchain: "0"
 
 # Ton network configs
 ton_node_global_config_URL_list:
